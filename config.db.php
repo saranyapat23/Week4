@@ -4,7 +4,7 @@
     header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PATCH, PUT, DETECT');
     header('Access-Control-Allow-Headers: token,Content-Type');
-    header('Access-Control-Max-Age:1278000');
+    header('Access-Control-Max-Age:1728000');
     header('Content-Length:0');
     header('Content-Type: text/plain');
 

@@ -1,35 +1,35 @@
 <?php
-    include("config.db.php");
-    $dataJSON = json_decode(file_get_contents("php//input", true) );
-    $message = array();
+include('config.db.php'); // ดึงไฟล์เชื่อมต่อฐานข้อมูลมาใช้งาน
 
-    // ประกาศตัวแปรสำหรับเพิ่มข้อมูล
-    $id_stu = $dataJSON ['id_stu'];
-    $name = $dataJSON ['name'];
-    $nname = $dataJSON ['nname'];
-    $age = $dataJSON ['age'];
-    $phone = $dataJSON ['phone'];
-    $address = $dataJSON ['address'];
-    $status = $dataJSON ['status'];
+$dataJSON = json_decode(file_get_contents('php://input'), true);
+$message = [];
 
-    //เขียนโค้ดเพิ่มข้อมูล
-    $sql = "INSERT INTO members (id_stu, name, nname, age, phone, address, status)
-    VALUES('$id_stu' , '$name' , '$nname' , '$age' , '$phone' , '$address' , '$status')";
+// ประกาศตัวแปร สำหรับเพิ่มข้อมูล
+$id_stu = $dataJSON['id_stu'];
+$name = $dataJSON['name'];
+$nname = $dataJSON['nname'];
+$age = $dataJSON['age'];
+$phone = $dataJSON['phone'];
+$address = $dataJSON['address'];
+$status = $dataJSON['status'];
 
-    //run code
-    $qr_insert = mysqli_query($conn, $sql);
+// เขียนคำสั่งในการเพิ่มข้อมูล
+$sql = "INSERT INTO `members` (`id_stu`, `name`, `nname`, `age`, `phone`, `address`, `status`) VALUES ('$id_stu', '$name', '$nname', '$age', '$phone', '$address', '$status');";
 
-    if($qr_insert){
-        //เพิ่มข้อมูลได้
-        http_response_code(201);
-        $message["status"] = "เพิ่มข้อมูลได้";
-    }else{
-        //เพิ่มข้อมูลไม่ได้
-        http_response_code(422);
-        $message["status"] = "เพิ่มข้อมูลไม่ได้";
-    }
+// รันคำสั่ง
+$qr_insert = mysqli_query($conn, $sql);
 
-    //ส่งข้อมูลการดำเนินการกลับไป
-    echo json_encode($message);
-    echo mysqli_error($conn);
+if ($qr_insert) {
+    // เพิ่มข้อมูลได้
+    http_response_code(201);
+    $message['status'] = "เพิ่มข้อมูลสำเร็จ";
+} else {
+    // เพิ่มข้อมูลไม่ได้
+    http_response_code(422);
+    $message['status'] = "เพิ่มข้อมูลไม่สำเร็จ";
+}
+// ส่งข้อมูลการดำเนินการกลับไป
+echo json_encode($message);
+echo mysqli_error($conn);
+
 ?>
